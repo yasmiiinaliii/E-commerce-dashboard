@@ -1,0 +1,94 @@
+{
+  "projectType": "application",
+  "root": "apps/ecommerce-website",
+  "sourceRoot": "apps/ecommerce-website/src",
+  "prefix": "develop",
+  "targets": {
+    "build": {
+      "executor": "@angular-devkit/build-angular:browser",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/ecommerce-website",
+        "index": "apps/ecommerce-website/src/index.html",
+        "main": "apps/ecommerce-website/src/main.ts",
+        "polyfills": "apps/ecommerce-website/src/polyfills.ts",
+        "tsConfig": "apps/ecommerce-website/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "assets": [
+          "apps/ecommerce-website/src/favicon.ico",
+          "apps/ecommerce-website/src/assets"
+        ],
+        "styles": ["apps/ecommerce-website/src/styles.scss"],
+        "scripts": []
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "fileReplacements": [
+            {
+              "replace": "apps/ecommerce-website/src/environments/environment.ts",
+              "with": "apps/ecommerce-website/src/environments/environment.prod.ts"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "buildOptimizer": false,
+          "optimization": false,
+          "vendorChunk": true,
+          "extractLicenses": false,
+          "sourceMap": true,
+          "namedChunks": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@angular-devkit/build-angular:dev-server",
+      "configurations": {
+        "production": {
+          "browserTarget": "ecommerce-website:build:production"
+        },
+        "development": {
+          "browserTarget": "ecommerce-website:build:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "browserTarget": "ecommerce-website:build"
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "options": {
+        "lintFilePatterns": [
+          "apps/ecommerce-website/src/**/*.ts",
+          "apps/ecommerce-website/src/**/*.html"
+        ]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/ecommerce-website"],
+      "options": {
+        "jestConfig": "apps/ecommerce-website/jest.config.js",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}
