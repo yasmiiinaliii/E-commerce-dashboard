@@ -19,6 +19,7 @@
         <div class="grid"></div>
         <div class="col-12 ">
             <p-table [value]="products" 
+                     [paginator]="true" [rows]="10"
                      responsiveLayout="scroll" 
                      styleClass="p-datatable-gridlines">
                 <ng-template pTemplate="header">

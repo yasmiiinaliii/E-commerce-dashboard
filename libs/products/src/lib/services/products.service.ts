@@ -19,8 +19,8 @@ export class ProductsService {
     return this.http.get<Product[]>(this.apiURLProducts);
   }
   
-  addProduct(product : Product): Observable<Product>  {
-    return this.http.post<Product>(this.apiURLProducts, product)
+  addProduct(productData: FormData): Observable<Product> {
+    return this.http.post<Product>(this.apiURLProducts, productData);
   }
   
   deleteProduct(productId: number): Observable<any> {
@@ -31,7 +31,7 @@ export class ProductsService {
     return this.http.get<Product>(`${this.apiURLProducts}/${productId}`);
   }
 
-  updateProduct(product: Product, productId: number): Observable<Product> {
-    return this.http.put<Product>(`${this.apiURLProducts}/${productId}`, product);
+  updateProduct(productData: FormData, productId: number): Observable<Product> {
+    return this.http.put<Product>(`${this.apiURLProducts}/${productId}`, productData);
   }
 }

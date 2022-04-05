@@ -1,72 +1,61 @@
 <p-toast></p-toast>
 <div class="admin-page">
-  <p-card [header]="editMode ? 'Edite Product' : 'Add Product'" subheader="You can Add products here">
-    <div class="grid">
-      <div class="col-12">
-        <form class="mt-4" [formGroup]="form">
-          <div class="card">
-            <div class="formgrid grid">
-                <div class="field col">
-                    <label for="productname">Product Name</label>
-                    <input formControlName="productname" 
-                    style="border: 1px solid #ced4da; border-radius: 6px; padding: 16px;"
-                    id="productname" type="text"
-                    class="inputfield w-full " />
-                    <small *ngIf="productForm.productname.invalid && isSubmitted" 
-                    class="p-error"> Name is required </small>
-                  </div>
-                  <div class="field col">
-                    <label for="price"> Price </label>
-                    <input formControlName="price" id="price" 
-                    style="border: 1px solid #ced4da; border-radius: 6px; padding: 16px;"
-                    type="number" class="inputfield w-full " />
-                    <small *ngIf="productForm.price.invalid && isSubmitted"
-                     class="p-error"> price is required </small>
-                  </div>
-                </div>
-                <div class="field">
-                  <label for="description"> Description </label> <br>
-                  <p-editor formControlName="description" 
-                  [style]="{ height: '200px' }"></p-editor>
-                  <!-- <textarea 
-                  pInputTextarea
-                  formControlName="description"
-                  [rows]="7"
-                  [cols]="160"
-                   ></textarea> -->
-                </div>
-                <div class="field col-12">
-                    <label for="name">Main Image</label> <br>
-                    <input
-                      type="file"
-                      class="p-inputtext"
-                      accept="image/*"
-                      (change)="onImageUpload($event)"
-                    />
-                    <small *ngIf="productForm.image.invalid && isSubmitted" class="p-error"
-                      >Image is required</small
-                    >
-                    <div class="col-2 mt-2 pl-0">
-                      <img style="height: 80px" [src]="imageDisplay" alt="" />
+    <p-card [header]="editMode ? 'Edite Product' : 'Add Product'" subheader="You can Add products here">
+        <div class="grid">
+            <div class="col-12">
+                <form class="mt-4" [formGroup]="form">
+                    <div class="card">
+                        <div class="formgrid grid">
+                            <div class="field col">
+                                <label for="title">Product Name</label>
+                                <input
+                                    formControlName="title"
+                                    style="border: 1px solid #ced4da; border-radius: 6px; padding: 16px"
+                                    id="title"
+                                    type="text"
+                                    class="inputfield w-full"
+                                />
+                                <small *ngIf="productForm.title.invalid && isSubmitted" class="p-error"> Name is required </small>
+                            </div>
+                            <div class="field col">
+                                <label for="price"> Price </label>
+                                <input
+                                    formControlName="price"
+                                    id="price"
+                                    style="border: 1px solid #ced4da; border-radius: 6px; padding: 16px"
+                                    type="number"
+                                    class="inputfield w-full"
+                                />
+                                <small *ngIf="productForm.price.invalid && isSubmitted" class="p-error"> price is required </small>
+                            </div>
+                        </div>
+                        <div class="grid">
+                            <div class="field col-12">
+                                <label for="description"> Description </label> <br />
+                                <p-editor formControlName="description" [style]="{ height: '200px' }"></p-editor>
+                            </div>
+                            <div class="field">
+                                <label for="name">Main Image</label>
+                                <input type="file" style="display: block" class="p-inputtext" accept="image/*" (change)="onImageUpload($event)" />
+                                <small *ngIf="productForm.image.invalid && isSubmitted" class="p-error">Image is required</small>
+                                <div class="col-2 mt-2 pl-0">
+                                    <img style="width: 100%" [src]="imageDisplay" alt="" />
+                                </div>
+                            </div>
+                        </div>
                     </div>
-                </div>
+                </form>
             </div>
-        </form>
-      </div>
-    </div>
-    <div class="grid">
-      <div class="col-12">
-        <p-toolbar>
-          <div class="p-toolbar-group-right">
-            <p-button label="Save" 
-            styleClass="p-button-success mr-2 py-2 px-3 "
-             (click)="onSubmit()"> </p-button>
-            <p-button label="Cancel"
-             styleClass="p-button-danger p-2" 
-             (click)="onCancel()"> </p-button>
-          </div>
-        </p-toolbar>
-      </div>
-    </div>
-  </p-card>
+        </div>
+        <div class="grid">
+            <div class="col-12">
+                <p-toolbar>
+                    <div class="p-toolbar-group-right">
+                        <p-button label="Save" styleClass="p-button-success mr-2 py-2 px-3 " (click)="onSubmit()"> </p-button>
+                        <p-button label="Cancel" styleClass="p-button-danger p-2" (click)="onCancel()"> </p-button>
+                    </div>
+                </p-toolbar>
+            </div>
+        </div>
+    </p-card>
 </div>

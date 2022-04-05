@@ -34,39 +34,32 @@ export class ProductsFormComponent implements OnInit {
 
     private _initForm() {
         this.form = this.formBuilder.group({
-            productname: ['', Validators.required],
+            title: ['', Validators.required],
             price: ['', Validators.required],
-            category:'',
             description:'...',
-            image:''
+            image:['', Validators.required],
         });
     }
 
-    onCancel(){
-      this.location.back(); 
+    onSubmit() {
+      this.isSubmitted = true;
+      if (this.form.invalid) {
+        return;
+      }
+      const productFormData = new FormData();
+      Object.keys(this.productForm).map((key) => {
+          productFormData.append(key, this.productForm[key].value);
+          console.log(key, this.productForm[key].value)
+      });
+      if (this.editMode) {
+        this._updateProduct(productFormData);
+      } else {
+        this._addProduct(productFormData);
+      }
     }
     
-    onSubmit() {
-        this.isSubmitted = true;
-        if (this.form.invalid) {
-            return;
-        }
-        const product : Product = {
-         id: this.currentProductId,
-         title:  this.productForm.productname.value,
-         price: this.productForm.price.value
-        };
-
-        if (this.editMode) {
-          this._updateProduct(product);
-        } else {
-          this._addProduct(product);
-        }
-
-    }
-
-    private _addProduct(product) {
-      this.productsServices.addProduct(product).subscribe(
+    private _addProduct(productData: FormData) {
+      this.productsServices.addProduct(productData).subscribe(
         (product: Product) => {
           this.messageService.add({
             severity: 'success',
@@ -74,10 +67,10 @@ export class ProductsFormComponent implements OnInit {
             detail: `Product ${product.title} is created!`
           });
           timer(2000)
-            .toPromise()
-            .then(() => {
-              this.location.back();
-            });
+          .toPromise()
+          .then(() => {
+            this.location.back();
+          });
         },
         () => {
           this.messageService.add({
@@ -86,58 +79,69 @@ export class ProductsFormComponent implements OnInit {
             detail: 'Product is not created!'
           });
         }
-      );
-    }
-
-    private _updateProduct(product: Product) {
-      this.productsServices.updateProduct(product, this.currentProductId).subscribe(
-        () => {
-          this.messageService.add({
-            severity: 'success',
-            summary: 'Success',
-            detail: 'Product is updated!'
-          });
-          timer(2000)
+        );
+      }
+      
+      private _updateProduct(productFormData: FormData) {
+        this.productsServices.updateProduct(productFormData, this.currentProductId).subscribe(
+          () => {
+            this.messageService.add({
+              severity: 'success',
+              summary: 'Success',
+              detail: 'Product is updated!'
+            });
+            timer(2000)
             .toPromise()
             .then(() => {
               this.location.back();
             });
-        },
-        () => {
-          this.messageService.add({
-            severity: 'error',
-            summary: 'Error',
-            detail: 'Product is not updated!'
+          },
+          () => {
+            this.messageService.add({
+              severity: 'error',
+              summary: 'Error',
+              detail: 'Product is not updated!'
+            });
+          }
+          );
+        }
+
+        onImageUpload(event) {
+          const file = event.target.files[0];
+          if (file) {
+            this.form.patchValue({ image: file });
+            this.form.get('image').updateValueAndValidity();
+            const fileReader = new FileReader();
+            fileReader.onload = () => {
+              this.imageDisplay = fileReader.result;
+            };
+            fileReader.readAsDataURL(file);
+          }
+        } 
+
+        private _checkEditModel() {
+          this.route.params.subscribe((params) => {
+            if (params.id) {
+              this.editMode = true;
+              this.currentProductId = params.id;
+              this.productsServices.getProduct(params.id).subscribe((product) => {
+                this.productForm.title.setValue(product.title);
+                this.productForm.price.setValue(product.price);
+                this.productForm. description.setValue(product. description);
+                this.imageDisplay = product.image;
+                this.productForm.image.setValidators([]);
+                this.productForm.image.updateValueAndValidity();
+              });
+            }
           });
         }
-      );
-    }
-    onImageUpload(event) {
-      const file = event.target.files[0];
-      if (file) {
-        this.form.patchValue({ image: file });
-        this.form.get('image').updateValueAndValidity();
-        const fileReader = new FileReader();
-        fileReader.onload = () => {
-          this.imageDisplay = fileReader.result;
-        };
-        fileReader.readAsDataURL(file);
-      }
-    } 
-    private _checkEditModel() {
-        this.route.params.subscribe((params) => {
-            if (params.id) {
-                this.editMode = true;
-                this.currentProductId = params.id;
-                this.productsServices.getProduct(params.id).subscribe((product) => {
-                    this.productForm.productname.setValue(product.title);
-                    this.productForm.price.setValue(product.price);
-                });
-            }
-        });
-    }
+        
+        get productForm() {
+          return this.form.controls;
+        }
 
-    get productForm() {
-        return this.form.controls;
-    }
-}
+        onCancel(){
+          this.location.back(); 
+        }
+      }
+      
