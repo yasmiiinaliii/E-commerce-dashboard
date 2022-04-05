@@ -1,7 +1,13 @@
 {
-  "version": 2,
-  "projects": {
-    "ecommerce-website": "apps/ecommerce-website",
-    "ecommerce-website-e2e": "apps/ecommerce-website-e2e"
-  }
+    "version": 2,
+    "projects": {
+        "admin": "apps/admin",
+        "admin-e2e": "apps/admin-e2e",
+        "eshop": "apps/eshop",
+        "eshop-e2e": "apps/eshop-e2e",
+        "orders": "libs/orders",
+        "products": "libs/products",
+        "ui": "libs/ui",
+        "users": "libs/users"
+    }
 }

@@ -1,0 +1,16 @@
+//base
+@import 'abstract/_variables.scss';
+@import 'abstract/_mixins.scss';
+@import 'base/_reset.scss';
+@import 'base/_typography.scss';
+
+
+//libraries
+@import '~primeicons/primeicons.css';
+@import '~primeng/resources/themes/lara-light-blue/theme.css';
+@import '~primeng/resources/primeng.min.css';
+@import '~primeflex/primeflex.css';
+
+
+//Shared
+@import './apps/admin/shell.scss';
