@@ -24,11 +24,11 @@
                      styleClass="p-datatable-gridlines">
                 <ng-template pTemplate="header">
                     <tr>
-                        <th pSortableColumn="id">ID <p-sortIcon field="id"></p-sortIcon></th>
+                        <th pSortableColumn="id">ID</th>
                         <th pSortableColumn="name">Name <p-sortIcon field="name"></p-sortIcon></th>
-                        <th>Image</th>
-                        <th pSortableColumn="price">Price <p-sortIcon field="price"></p-sortIcon></th>
-                        <th pSortableColumn="category">Category <p-sortIcon field="category"></p-sortIcon></th>
+                        <th class="col-2" > Image</th>
+                        <th  class="col-2" pSortableColumn="price">Price <p-sortIcon field="price"></p-sortIcon></th>
+                        <th class="col-2" pSortableColumn="category">Category <p-sortIcon field="category"></p-sortIcon></th>
                         <th></th>
                         <!-- <th>Quantity</th> -->
                     </tr>
@@ -37,12 +37,12 @@
                     <tr>
                         <td>{{product.id}}</td>
                         <td >{{product.title}}</td>
-                        <td><img [src]="product.image" style="width: 180px;   padding: 0px 20px;"  /></td>
+                        <td><img [src]="product.image" style="width:100%;   padding: 0px 20px;"  /></td>
                         <td>{{product.price + ' EGP'}}</td>
                         <td>{{product.category}}</td>
                         <td>
-                          <p-button (click)="deleteProduct(product.id)" styleClass="p-button-danger mb-3" icon="pi pi-trash"></p-button>  
-                          <p-button (click)="updateProduct(product.id)" styleClass="p-button" icon="pi pi-pencil"></p-button>  
+                          <p-button (click)="deleteProduct(product.id)" styleClass="p-button-danger ml-5 mb-3" icon="pi pi-trash"></p-button>  
+                          <p-button (click)="updateProduct(product.id)" styleClass="p-button ml-5  " icon="pi pi-pencil"></p-button>  
                         </td>
                         <!-- <td>{{product.quantity}}</td> -->
                     </tr>

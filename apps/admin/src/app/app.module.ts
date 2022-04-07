@@ -14,6 +14,7 @@ import { SidebarComponent } from './shared/sidebar/sidebar.component';
 import { NotFoundComponent } from './pages/not-found/not-found.component';
 import { ProductsFormComponent } from './pages/products/products-form/products-form.component';
 import { ProductsListComponent } from './pages/products/products-list/products-list.component';
+import { OrderListComponent } from './pages/orders/order-list/order-list.component';
 
 import { ButtonModule } from 'primeng/button';
 import { CardModule } from 'primeng/card';
@@ -23,15 +24,25 @@ import { ToastModule } from 'primeng/toast';
 import { InputTextModule } from 'primeng/inputtext';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MessageService } from 'primeng/api';
-import {ConfirmDialogModule} from 'primeng/confirmdialog';
-import {ConfirmationService} from 'primeng/api';
-import {EditorModule} from 'primeng/editor';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ConfirmationService } from 'primeng/api';
+import { EditorModule } from 'primeng/editor';
 import { InputTextareaModule } from 'primeng/inputtextarea';
+import { TagModule } from 'primeng/tag';
 
-// import { ConfirmationService, MessageService } from 'primeng/api';
-// import { ConfirmDialogModule } from 'primeng/confirmdialog';
 
-const UI_Module = [ButtonModule,InputTextareaModule, ConfirmDialogModule, EditorModule, CardModule, ToolbarModule, TableModule, ToastModule, InputTextModule];
+const UI_Module = [
+    ButtonModule,
+    InputTextareaModule,
+    TagModule,
+    ConfirmDialogModule,
+    EditorModule,
+    CardModule,
+    ToolbarModule,
+    TableModule,
+    ToastModule,
+    InputTextModule,
+];
 
 const routes: Routes = [
     {
@@ -54,6 +65,11 @@ const routes: Routes = [
                 path: 'products/form/:id',
                 component: ProductsFormComponent,
             },
+            {
+                path: 'orders',
+                component: OrderListComponent,
+
+            },   
         ],
     },
 ];
@@ -67,6 +83,7 @@ const routes: Routes = [
         NotFoundComponent,
         ProductsFormComponent,
         ProductsListComponent,
+        OrderListComponent,
     ],
     imports: [
         BrowserModule,
@@ -77,7 +94,7 @@ const routes: Routes = [
         RouterModule.forRoot(routes, { initialNavigation: 'enabledBlocking' }),
         ...UI_Module,
     ],
-    providers: [MessageService,ProductsService,ConfirmationService],
+    providers: [MessageService, ProductsService, ConfirmationService],
     bootstrap: [AppComponent],
 })
 export class AppModule {}
