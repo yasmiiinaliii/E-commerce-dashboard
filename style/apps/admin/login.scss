@@ -1,0 +1,37 @@
+.login{
+    &-page{
+        background-color: rgb(255, 255, 255);
+    }
+    &-logo-background{
+        background-color: $admin-primary-color-light;
+        height: 100vh;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    &-logo{
+    width:  200px;
+    }
+    &-btn{
+        width:100%;
+        color:white; 
+        background-color: $admin-primary-color-light ;
+        border-color: transparent;
+        border-radius: 6px;
+        height: 48px;
+        &:hover{
+            background-color: #2a6099;
+        }
+    }
+}
+@media only screen and (max-width: 768px) {
+    .login-logo-background{
+        display: none; 
+    }
+
+    .login-form-cotainer{
+        position: absolute;
+        bottom: calc(50% - 140px);
+    }
+  }
+

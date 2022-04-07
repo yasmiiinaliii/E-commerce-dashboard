@@ -29,6 +29,7 @@ import { ConfirmationService } from 'primeng/api';
 import { EditorModule } from 'primeng/editor';
 import { InputTextareaModule } from 'primeng/inputtextarea';
 import { TagModule } from 'primeng/tag';
+import { LoginComponent } from './pages/login/login.component';
 
 
 const UI_Module = [
@@ -72,6 +73,10 @@ const routes: Routes = [
             },   
         ],
     },
+    {
+        path: 'login',
+        component: LoginComponent, 
+    }
 ];
 @NgModule({
     declarations: [
@@ -84,6 +89,7 @@ const routes: Routes = [
         ProductsFormComponent,
         ProductsListComponent,
         OrderListComponent,
+        LoginComponent,
     ],
     imports: [
         BrowserModule,
