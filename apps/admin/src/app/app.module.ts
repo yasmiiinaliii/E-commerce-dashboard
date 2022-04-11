@@ -6,6 +6,7 @@ import { HttpClient, HttpClientModule } from '@angular/common/http';
 import { NxWelcomeComponent } from './nx-welcome.component';
 import { RouterModule, Routes } from '@angular/router';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import{AuthGuardService} from'@develop/users'
 
 import { AppComponent } from './app.component';
 import { DashboardComponent } from './pages/dashboard/dashboard.component';
@@ -49,6 +50,7 @@ const routes: Routes = [
     {
         path: '',
         component: ShellComponent,
+        canActivate:[AuthGuardService],
         children: [
             {
                 path: 'admin',

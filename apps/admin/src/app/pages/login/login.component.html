@@ -3,7 +3,7 @@
         <div class="form-container">
             <div class="grid justify-content-center ">
                 <div class="col-8 text-3xl font-medium mb-2" style="color: #19487b"> Welcome!
-                    <p style=" color: black;"class="text-base pt-1 mb-2" >Sign In To EShopy Admin Dashboard</p>
+                    <p style=" color: black;"class="text-base pt-1 mb-4" >Sign In To EShopy Admin Dashboard</p>
                 </div>
             </div>
             <form [formGroup]="loginFormGroup">
@@ -13,10 +13,10 @@
                             <span class="p-inputgroup-addon"><i class="pi pi-user"></i></span>
                             <input type="text" formControlName="email" pInputText placeholder="Email" />
                         </div>
-                        <small *ngIf="loginForm.email && isSubmitted" class="p-error"
-                            ><span *ngIf="loginForm.email.errors.required">email is required</span>
-                            <span *ngIf="loginForm.email.errors.email">email is invalid</span></small
-                        >
+                        <small *ngIf="loginForm.email.invalid && isSubmitted" class="p-error"
+                        ><span *ngIf="loginForm.email.errors.required">email is required</span>
+                        <span *ngIf="loginForm.email.errors.email">email is invalid</span>
+                      </small>
                     </div>
                     <div class="col-8">
                         <div class="p-inputgroup">
@@ -26,8 +26,11 @@
                         <small *ngIf="loginForm.password.invalid && isSubmitted" class="p-error">Password is required </small>
                     </div>
                     <div class="col-8">
-                        <button class="login-btn mt-2" (click)="onSubmit()"> submit</button>
+                        <button class="login-btn mt-4" (click)="onSubmit()"> submit</button>
                     </div>
+                    <div class="col-8" *ngIf="isSubmitted && authError">
+                        <small class="p-error">{{ authMessage }}</small>
+                      </div>
                 </div>
             </form>
         </div>
