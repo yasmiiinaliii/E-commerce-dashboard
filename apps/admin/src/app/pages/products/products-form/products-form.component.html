@@ -7,12 +7,12 @@
           <div class="card">
             <div class="formgrid grid">
                 <div class="field col">
-                    <label for="title">Product Name</label>
-                    <input formControlName="title" 
+                    <label for="name">Product Name</label>
+                    <input formControlName="name" 
                     style="border: 1px solid #ced4da; border-radius: 6px; padding: 16px;"
                     id="title" type="text"
                     class="inputfield w-full " />
-                    <small *ngIf="productForm.title.invalid && isSubmitted" 
+                    <small *ngIf="productForm.name.invalid && isSubmitted" 
                     class="p-error"> Name is required </small>
                   </div>
                   <div class="field col">
@@ -39,15 +39,14 @@
                           accept="image/*"
                           (change)="onImageUpload($event)"
                         />
-                        <small *ngIf="productForm.image.invalid && isSubmitted" class="p-error"
+                        <small *ngIf="productForm. productImage.invalid && isSubmitted" class="p-error"
                           >Image is required</small
                         >
                         <div class="col-2 mt-2 pl-0">
-                          <img style="width: 100%;" [src]="imageDisplay" alt="" />
+                          <img style="width: 100%;" [src]="'https://project-storeelc.herokuapp.com/'+imageDisplay" alt="" />
                         </div>
                     </div>
                 </div>
-           
             </div>
         </form>
       </div>

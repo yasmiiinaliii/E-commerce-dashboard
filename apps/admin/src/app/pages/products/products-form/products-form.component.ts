@@ -17,7 +17,7 @@ export class ProductsFormComponent implements OnInit {
     isSubmitted = false;
     editMode = false;
     imageDisplay: string | ArrayBuffer;
-    currentProductId: number;
+    currentProductId: string;
 
     constructor(
         private location: Location,
@@ -30,14 +30,15 @@ export class ProductsFormComponent implements OnInit {
     ngOnInit(): void {
       this._initForm()  
       this._checkEditModel();
+      this.currentProductId=this.route.snapshot.paramMap.get('id');
     }
 
     private _initForm() {
         this.form = this.formBuilder.group({
-            title: ['', Validators.required],
-            price: ['', Validators.required],
+            name:'',
+            price: '',
             description:'...',
-            image:['', Validators.required],
+            productImage:'',
         });
     }
 
@@ -46,11 +47,14 @@ export class ProductsFormComponent implements OnInit {
       if (this.form.invalid) {
         return;
       }
+
       const productFormData = new FormData();
       Object.keys(this.productForm).map((key) => {
           productFormData.append(key, this.productForm[key].value);
-          console.log(key, this.productForm[key].value)
+          console.log(productFormData)
       });
+
+
       if (this.editMode) {
         this._updateProduct(productFormData);
       } else {
@@ -64,7 +68,7 @@ export class ProductsFormComponent implements OnInit {
           this.messageService.add({
             severity: 'success',
             summary: 'Success',
-            detail: `Product ${product.title} is created!`
+            detail: `Product ${product.name} is created!`
           });
           timer(2000)
           .toPromise()
@@ -85,6 +89,8 @@ export class ProductsFormComponent implements OnInit {
       private _updateProduct(productFormData: FormData) {
         this.productsServices.updateProduct(productFormData, this.currentProductId).subscribe(
           () => {
+            console.log(this.currentProductId);
+            
             this.messageService.add({
               severity: 'success',
               summary: 'Success',
@@ -109,8 +115,8 @@ export class ProductsFormComponent implements OnInit {
         onImageUpload(event) {
           const file = event.target.files[0];
           if (file) {
-            this.form.patchValue({ image: file });
-            this.form.get('image').updateValueAndValidity();
+            this.form.patchValue({  productImage: file });
+            this.form.get(' productImage').updateValueAndValidity();
             const fileReader = new FileReader();
             fileReader.onload = () => {
               this.imageDisplay = fileReader.result;
@@ -123,14 +129,14 @@ export class ProductsFormComponent implements OnInit {
           this.route.params.subscribe((params) => {
             if (params.id) {
               this.editMode = true;
-              this.currentProductId = params.id;
+              //this.currentProductId = params.id;
               this.productsServices.getProduct(params.id).subscribe((product) => {
-                this.productForm.title.setValue(product.title);
+                this.productForm.name.setValue(product.name);
                 this.productForm.price.setValue(product.price);
                 this.productForm. description.setValue(product. description);
-                this.imageDisplay = product.image;
-                this.productForm.image.setValidators([]);
-                this.productForm.image.updateValueAndValidity();
+                this.imageDisplay = product.productImage;
+                this.productForm.productImage.setValidators([]);
+                this.productForm.productImage.updateValueAndValidity();
               });
             }
           });

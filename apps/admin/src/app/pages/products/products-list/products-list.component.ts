@@ -10,8 +10,7 @@ import { MessageService, ConfirmationService } from 'primeng/api';
   ]
 })
 export class ProductsListComponent implements OnInit {
-  products = [];
-
+  products:any[] = [];
   constructor( 
     private productsService: ProductsService,
     private router: Router,
@@ -25,14 +24,17 @@ export class ProductsListComponent implements OnInit {
   }
 
   private _getProducts() {
-    this.productsService.getProducts().subscribe((products) => { this.products = products})
+     this.productsService.getProducts().subscribe((products) => { 
+      this.products =  products["AllProduct"]      
+      })
   }
 
-  updateProduct(productId: number){
+  
+  updateProduct(productId: string){
     this.router.navigateByUrl(`products/form/${productId}`);
   }
 
-  deleteProduct(productId: number) {
+  deleteProduct(productId: string) {
     console.log('delete');
     
     this.confirmationService.confirm({

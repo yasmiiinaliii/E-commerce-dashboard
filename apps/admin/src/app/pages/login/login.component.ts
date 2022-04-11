@@ -32,7 +32,7 @@ export class LoginComponent implements OnInit {
 
   private _initLoginForm() {
     this.loginFormGroup = this.formBuilder.group({
-      email: ['', Validators.required],
+      email: ['',[Validators.required, Validators.email] ],
       password: ['', Validators.required]
     });
   }
@@ -46,11 +46,15 @@ export class LoginComponent implements OnInit {
       (user) => {
         this.authError = false;
         this.localstorageService.setToken(user.token)
+        localStorage.setItem('isAdmin',user['admin'])
+        
+        console.log(user['admin']);
+        
         this.router.navigateByUrl('/')
       },
       (error: HttpErrorResponse) => {
         this.authError = true;
-        if (error.status !== 401) {
+        if (error.status !== 400) {
           this.authMessage = 'Error in the Server!';
         }
       }

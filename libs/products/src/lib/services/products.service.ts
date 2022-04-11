@@ -23,15 +23,19 @@ export class ProductsService {
     return this.http.post<Product>(this.apiURLProducts, productData);
   }
   
-  deleteProduct(productId: number): Observable<any> {
+  deleteProduct(productId: string): Observable<any> {
     return this.http.delete<any>(`${this.apiURLProducts}/${productId}`);
   }
 
-  getProduct(productId: number): Observable<Product> {
+  getProduct(productId: string): Observable<Product> {
     return this.http.get<Product>(`${this.apiURLProducts}/${productId}`);
   }
 
-  updateProduct(productData: FormData, productId: number): Observable<Product> {
-    return this.http.put<Product>(`${this.apiURLProducts}/${productId}`, productData);
+  updateProduct(productData: FormData, productId: string): Observable<Product> {
+    console.log(productId);
+    console.log(productData);
+    
+    
+    return this.http.patch<Product>(`${this.apiURLProducts}/${productId}`, productData);
   }
 }

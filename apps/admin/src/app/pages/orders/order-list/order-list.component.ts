@@ -27,7 +27,7 @@ export class OrderListComponent implements OnInit {
   orders : Order[] = []
   
   // orderStatus = "panding";
-  orderStatus = ORDER_STATUS;
+  // orderStatus = ORDER_STATUS;
 
   constructor( private orderService : OrdersService ) { }
 
@@ -37,8 +37,10 @@ export class OrderListComponent implements OnInit {
 
   private _getOrders(){
     this.orderService.getOrders().subscribe(
-      (orders) => { this.orders = orders}
+      (orders) => { 
+        this.orders = orders; 
+        console.log(orders);
+      }
     )
   }
-
 }

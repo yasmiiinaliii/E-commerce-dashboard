@@ -8,7 +8,7 @@ import { environment } from '../../../../../apps/admin/src/environments/environm
   providedIn: 'root'
 })
 export class OrdersService {
-  apiURLOrders = environment.apiUrl + 'carts';
+  apiURLOrders = environment.apiUrl + 'orders';
  
   constructor(private http: HttpClient) {}
 
@@ -24,9 +24,9 @@ export class OrdersService {
 //     return this.http.post<Order>(this.apiURLOrders, order);
 //   }
 
-//   updateOrder(orderStaus: { status: string }, orderId: string): Observable<Order> {
-//     return this.http.put<Order>(`${this.apiURLOrders}/${orderId}`, orderStaus);
-//   }
+  updateOrder(orderStaus: { status: string }, orderId: string): Observable<Order> {
+    return this.http.put<Order>(`${this.apiURLOrders}/${orderId}`, orderStaus);
+  }
 
 //   deleteOrder(orderId: string): Observable<any> {
 //     return this.http.delete<any>(`${this.apiURLOrders}/${orderId}`);

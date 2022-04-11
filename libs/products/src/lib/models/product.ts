@@ -1,13 +1,9 @@
-import { Category } from './category';
 
 export class Product {
-    id?: number;
-    title?: string;
+    _id?: string;
+    name?: string;
     price?: number;
-    category?: Category;
     description?: string;
-    image?: string;
-    rate?: number;
+    productImage?: string;
     count?: number;
   }
-  
